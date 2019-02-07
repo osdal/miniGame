@@ -1,0 +1,34 @@
+td {
+    border: 1px solid grey;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 10px;
+}
+
+.content {
+    margin-right: 20px;
+}
+
+#input-time {
+    height: 50px;
+}
+
+.set-time {
+    display: flex;
+}
+
+.start {
+    width: 100%
+}
+
+.counter-title {
+    text-align: center;
+}
+
+.count-line {
+    font-size: 25px;
+}
