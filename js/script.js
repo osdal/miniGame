@@ -1,9 +1,11 @@
 var table = document.querySelector('table'),
     body = document.getElementsByTagName("BODY")[0],
     cellSize = document.documentElement.clientWidth / 30,
-    compCount = document.querySelector('#comp-count'),
+    compCount = document.getElementById('#comp-count'),
     playerCount = document.getElementById('player-count'),
     inputTime = document.getElementById('input-time'),
+    modalCompCount = document.getElementById('modal-comp-count'),
+    modalPlayerCount = document.getElementById('modal-player-count'),
     delay;
 var countWinComp = 0,
     countWinPlayaer = 0,
@@ -40,20 +42,27 @@ table.addEventListener('click', function(event) {
     }
 });
 
-
-
 function startGame() {
+    clearInterval(activeCell);
+    clearInterval(compWin);
+    clearInterval(takeGreen);
+    countWinComp = 0;
+    countWinPlayaer = 0;
+    compCount.innerText = 0;
+    playerCount.innerText = 0;
+    gen = false;
 
-    // function makeBlue() {
-    //     for (let i = 0; i < tds.length; i++) {
-    //         if (tds[i].style.backgroundColor != 'blue') {
-    //             setTimeout(() => {
-    //                 tds[i].style.backgroundColor = 'blue';
-    //             }, 500);
-    //         }
-    //     }
-    // }
-    // setInterval(makeBlue, delay);
+    function makeBlue() {
+        for (let i = 0; i < tds.length; i++) {
+            if (tds[i].style.backgroundColor != 'blue') {
+                setTimeout(() => {
+                    tds[i].style.backgroundColor = 'blue';
+                }, 500);
+            }
+        }
+    }
+
+    makeBlue();
 
     function generateCellNumber() {
         if (!!gen) {
@@ -72,35 +81,38 @@ function startGame() {
             countWinComp++;
             tds[oldGen].style.backgroundColor = 'red';
             compCount.innerText = countWinComp;
+
             if (countWinComp == playUp) {
-                countWinComp = 0;
-                countWinPlayaer = 0;
-                compCount.innerText = 0;
-                playerCount.innerText = 0;
-                // makeBlue();
-                $("#youLose").modal('show');
+                $("#modal-form").modal('show');
+                tds[gen].style.backgroundColor = 'blue';
+                modalCompCount.innerText = countWinComp;
+                modalPlayerCount.innerText = countWinPlayaer;
                 clearInterval(activeCell);
-                clearInterval(setRed);
+                clearInterval(compWin);
+                clearInterval(takeGreen);
+                winComp = false;
+                oldGen = false;
             }
         }
         winComp = true;
     };
 
-    var setRed = setInterval(setRed, delay);
+    var compWin = setInterval(setRed, delay);
 
     function takeWinPlayer() {
         for (let i = 0; i < tds.length; i++) {
             if (tds[i].style.backgroundColor == 'green') {
                 countWinPlayaer++;
                 playerCount.innerText = countWinPlayaer;
+
                 if (countWinPlayaer == playUp) {
-                    countWinPlayaer = 0;
-                    countWinComp = 0;
-                    compCount.innerText = 0;
-                    playerCount.innerText = 0;
-                    $("#youWin").modal('show');
+                    $("#modal-form").modal('show');
+                    modalCompCount.innerText = countWinComp;
+                    modalPlayerCount.innerText = countWinPlayaer;
                     clearInterval(activeCell);
-                    clearInterval(setRed);
+                    clearInterval(compWin);
+                    clearInterval(takeGreen);
+                    winComp = false;
                 }
             }
 
