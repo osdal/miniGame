@@ -1,7 +1,7 @@
 var table = document.querySelector('table'),
     body = document.getElementsByTagName("BODY")[0],
     cellSize = document.documentElement.clientWidth / 30,
-    compCount = document.getElementById('#comp-count'),
+    compCount = document.querySelector('#comp-count'),
     playerCount = document.getElementById('player-count'),
     inputTime = document.getElementById('input-time'),
     modalCompCount = document.getElementById('modal-comp-count'),
@@ -48,6 +48,7 @@ function startGame() {
     clearInterval(takeGreen);
     countWinComp = 0;
     countWinPlayaer = 0;
+
     compCount.innerText = 0;
     playerCount.innerText = 0;
     gen = false;
