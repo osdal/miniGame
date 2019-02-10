@@ -9,7 +9,7 @@ var table = document.querySelector('table'),
     delay;
 var countWinComp = 0,
     countWinPlayaer = 0,
-    playUp = 4;
+    playUp = 10;
 var gen, oldGen;
 var winComp = true;
 var winPlayer = true;
