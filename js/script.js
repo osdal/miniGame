@@ -1,6 +1,7 @@
 var table = document.querySelector('table'),
     body = document.getElementsByTagName("BODY")[0],
     cellSize = document.documentElement.clientWidth / 30,
+    startButton = document.querySelector('.start'),
     compCount = document.querySelector('#comp-count'),
     playerCount = document.getElementById('player-count'),
     inputTime = document.getElementById('input-time'),
@@ -43,6 +44,13 @@ table.addEventListener('click', function(event) {
 });
 
 function startGame() {
+    startButton.disabled = true;
+
+    if (!delay) {
+        alert('Нужно ввести значение!');
+        return;
+    }
+
     clearInterval(activeCell);
     clearInterval(compWin);
     clearInterval(takeGreen);
@@ -84,6 +92,7 @@ function startGame() {
             compCount.innerText = countWinComp;
 
             if (countWinComp == playUp) {
+                startButton.disabled = false;
                 $("#modal-form").modal('show');
                 tds[gen].style.backgroundColor = 'blue';
                 modalCompCount.innerText = countWinComp;
@@ -107,6 +116,7 @@ function startGame() {
                 playerCount.innerText = countWinPlayaer;
 
                 if (countWinPlayaer == playUp) {
+                    startButton.disabled = false;
                     $("#modal-form").modal('show');
                     modalCompCount.innerText = countWinComp;
                     modalPlayerCount.innerText = countWinPlayaer;
